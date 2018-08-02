@@ -22,7 +22,7 @@ export default class SwiperFlatList extends PureComponent {
 
     renderAll: PropTypes.bool,
     renderItem: PropTypes.func,
-
+    
     PaginationComponent: PropTypes.func,       
 
     // Only is allowed children or data not both
@@ -171,6 +171,7 @@ export default class SwiperFlatList extends PureComponent {
       PaginationComponent,
       paginationActiveColor,
       paginationDefaultColor,
+      actionToSkip,
       ...props
     } = this.props;
 
@@ -203,7 +204,8 @@ export default class SwiperFlatList extends PureComponent {
       scrollToIndex: this._scrollToIndex,
       scrollToNextIndex:this._scrollToNextIndex,
       paginationActiveColor,
-      paginationDefaultColor
+      paginationDefaultColor,
+      actionToSkip,
     };
 
     return (

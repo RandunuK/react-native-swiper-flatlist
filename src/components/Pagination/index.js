@@ -35,6 +35,7 @@ export default class Pagination extends PureComponent {
       paginationIndex,
       scrollToIndex,
       scrollToNextIndex,
+      actionToSkip,
       paginationDefaultColor,
       paginationActiveColor,
       paginationWidth,
@@ -46,7 +47,7 @@ export default class Pagination extends PureComponent {
 
     return (
       <View style={styles.paginationContainer}>
-        <ButtonBorderLess style={{ fontWeight: '100', textAlign: 'left', color: '#fff' }}> Skip </ButtonBorderLess>
+        <ButtonBorderLess style={{ fontWeight: '100', textAlign: 'left', color: '#fff' }} onPress={() => actionToSkip()}> Skip </ButtonBorderLess>
         {data.map((_, index) => (
           <View key={index}>
             <TouchableOpacity
