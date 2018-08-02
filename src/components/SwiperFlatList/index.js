@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Text } from 'react-native';
 
 import Pagination from '../Pagination';
 
@@ -23,7 +23,7 @@ export default class SwiperFlatList extends PureComponent {
     renderAll: PropTypes.bool,
     renderItem: PropTypes.func,
 
-    PaginationComponent: PropTypes.func,
+    PaginationComponent: PropTypes.func,       
 
     // Only is allowed children or data not both
     children(props, propName) {
@@ -123,6 +123,17 @@ export default class SwiperFlatList extends PureComponent {
     });
   };
 
+   _scrollToNextIndex = (index, animated = true) => {   
+    const nextIndex = (index + 1) % this._data.length;    
+    const params = { animated, index: nextIndex };    
+    this.setState(() => {
+      if (this.flatListRef) {
+        this.flatListRef.scrollToIndex(params);
+      }
+      return { paginationIndex: nextIndex };
+    });
+  }; 
+
   _onMomentumScrollEnd = e => {
     const { autoplay, vertical, onMomentumScrollEnd } = this.props;
     const { contentOffset, layoutMeasurement } = e.nativeEvent;
@@ -190,6 +201,7 @@ export default class SwiperFlatList extends PureComponent {
       data: this._data,
       paginationIndex: this.state.paginationIndex,
       scrollToIndex: this._scrollToIndex,
+      scrollToNextIndex:this._scrollToNextIndex,
       paginationActiveColor,
       paginationDefaultColor
     };
@@ -197,7 +209,7 @@ export default class SwiperFlatList extends PureComponent {
     return (
       <View>
         <FlatList {...flatListProps} />
-        {showPagination && <PaginationComponent {...paginationProps} />}
+        {showPagination && <PaginationComponent {...paginationProps} />}        
       </View>
     );
   }
