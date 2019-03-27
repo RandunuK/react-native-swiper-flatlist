@@ -44,10 +44,11 @@ export default class Pagination extends PureComponent {
     } = this.props;
 
     const s = {  width:paginationWidth, height: paginationHeight}
+    const removeNextButton = paginationIndex===(data.length-1);
 
     return (
       <View style={styles.paginationContainer}>
-        <ButtonBorderLess style={{ fontWeight: '100', textAlign: 'left', color: '#fff' }} onPress={() => actionToSkip()}> Skip </ButtonBorderLess>
+        <ButtonBorderLess style={{ fontWeight: '100', textAlign: 'left', color: '#fff', display:removeNextButton?'none':'flex' }} onPress={() => actionToSkip()}> Skip </ButtonBorderLess>
         {data.map((_, index) => (
           <View key={index}>
             <TouchableOpacity
@@ -63,7 +64,7 @@ export default class Pagination extends PureComponent {
             
           </View>
         ))}
-        <ButtonBorderLess style={{ fontWeight: '100', textAlign: 'right', color: '#fff' }} onPress={() => scrollToNextIndex(paginationIndex)}> Next </ButtonBorderLess>
+        <ButtonBorderLess style={{ fontWeight: '100', textAlign: 'right', color: '#fff' }} onPress={() => removeNextButton?actionToSkip():scrollToNextIndex(paginationIndex)}> {removeNextButton?'Skip':'Next'} </ButtonBorderLess>
       </View>
     );
   }
